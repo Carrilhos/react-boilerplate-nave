@@ -1,9 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast, ToastContainer } from 'react-toastify'
 
 import Column from 'components/Column'
 import Input from 'components/Input'
 import Button from 'components/Button'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { useAuth } from 'context/auth-context'
 
@@ -14,11 +16,14 @@ const Login = () => {
 
   const { register, handleSubmit, errors, formState } = useForm({ validationSchema: loginSchema })
 
+  const notify = () => toast('Erro ao tentar entrar, verifique suas credenciais')
+
   const onSubmit = async values => {
     try {
       await login(values)
     } catch (error) {
       console.log(error)
+      notify()
     }
   }
 
@@ -42,6 +47,7 @@ const Login = () => {
       <Button bg='purple' isLoading={formState.isSubmitting}>
         Entrar
       </Button>
+      <ToastContainer />
     </Column>
   )
 }
