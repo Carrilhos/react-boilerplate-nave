@@ -1,9 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import Column from 'components/Column'
 import Input from 'components/Input'
 import Button from 'components/Button'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { useAuth } from 'context/auth-context'
 
@@ -18,7 +20,7 @@ const Login = () => {
     try {
       await login(values)
     } catch (error) {
-      console.log(error)
+      toast.error('Erro ao tentar entrar, verifique suas credenciais')
     }
   }
 
