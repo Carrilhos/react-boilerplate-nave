@@ -2,6 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import Helmet from 'react-helmet'
+import { ToastContainer } from 'react-toastify'
 // import { Provider } from 'react-redux'
 // import createHistory from 'history/createBrowserHistory'
 // import store from './redux/store'
@@ -50,6 +51,7 @@ const App = () => {
       <Suspense fallback={<Loader />}>
         <Router>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</Router>
       </Suspense>
+      <ToastContainer />
     </Theme>
     // </Provider>
   )
