@@ -15,7 +15,7 @@ const DadosUsuario = props => {
     <form
       onSubmit={event => {
         event.preventDefault()
-        possoEnviar() === true ? props.aoEnviarForm({ email, senha }) : console.log('Digite uma senha valida')
+        possoEnviar() ? props.aoEnviarForm({ email, senha }) : console.log('Digite uma senha valida')
       }}
     >
       <TextField
