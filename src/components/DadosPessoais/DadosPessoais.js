@@ -1,21 +1,29 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core/'
 
-const Form = props => {
+import ValidacoesCadastro from 'context/validacoesCadastro'
+import UseErros from 'hooks/useErros'
+
+const DadosPessoais = props => {
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
   const [email, setEmail] = useState('')
   const [cpf, setCpf] = useState('')
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(true)
-  const [errors, setErros] = useState({ cpf: { valido: true, texto: '' } })
+
+  const validacoes = useContext(ValidacoesCadastro)
+
+  const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
 
   return (
     <Fragment>
       <form
         onSubmit={event => {
           event.preventDefault()
-          props.onSubmit({ nome, sobrenome, cpf, novidades, promocoes })
+          possoEnviar()
+            ? props.aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
+            : console.log('Digite um CPF valido')
         }}
       >
         <TextField
@@ -26,6 +34,7 @@ const Form = props => {
           fullWidth
           margin='normal'
           onChange={event => setNome(event.target.value)}
+          required
         />
         <TextField
           id='sobrenome'
@@ -35,16 +44,9 @@ const Form = props => {
           margin='normal'
           value={sobrenome}
           onChange={event => setSobrenome(event.target.value)}
+          required
         />
-        <TextField
-          id='email'
-          label='Email'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          value={email}
-          onChange={event => setEmail(event.target.value)}
-        />
+
         <TextField
           id='cpf'
           label='CPF'
@@ -53,12 +55,11 @@ const Form = props => {
           margin='normal'
           value={cpf}
           onChange={event => setCpf(event.target.value)}
-          error={!errors.cpf.valido}
-          helperText={errors.cpf.texto}
-          onBlur={event => {
-            const eValido = props.validarCPF(cpf)
-            setErros({ cpf: eValido })
-          }}
+          error={!erros.cpf.valido}
+          helperText={erros.cpf.texto}
+          onBlur={validarCampos}
+          required
+          name='cpf'
         />
 
         <FormControlLabel
@@ -85,11 +86,11 @@ const Form = props => {
         />
 
         <Button type='submit' variant='contained' color='primary'>
-          Cadastrar
+          Próximo
         </Button>
       </form>
     </Fragment>
   )
 }
 
-export default Form
+export default DadosPessoais
