@@ -9,7 +9,7 @@ const FormCadastro = ({ aoEnviarForm }) => {
   const [etapaAtual, setEtapaAtual] = useState(0)
   const [dadosColetados, setDadosColetados] = useState({})
 
-  useEffect(() => (etapaAtual === formularios.length - 1 ? aoEnviarForm(dadosColetados) : console.log(), [etapaAtual]))
+  useEffect(() => (etapaAtual === formularios.length - 1 ? aoEnviarForm(dadosColetados) : console.log()))
 
   const next = () => {
     setEtapaAtual(etapaAtual + 1)
