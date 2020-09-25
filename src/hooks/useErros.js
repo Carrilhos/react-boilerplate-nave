@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const UseErros = validacoes => {
   const estadoInicial = criarEstadoInicial(validacoes)
@@ -13,8 +13,9 @@ const UseErros = validacoes => {
   }
 
   const possoEnviar = () => {
-    for (let campo in erros) if (!erros[campo].valido) return false
-    return true
+    // for (let campo in erros) if (!erros[campo].valido) return false
+    //  return true
+    const errosArray = Object.entries(erros)
   }
 
   return [erros, validarCampos, possoEnviar]
