@@ -20,7 +20,7 @@ const DadosUsuario = ({ aoEnviarForm }) => {
     >
       <TextField
         value={email}
-        onChange={({ target: { value } } = event) => setEmail(value)}
+        onChange={({ target: { value } }) => setEmail(value)}
         id='email'
         label='email'
         type='email'
@@ -32,7 +32,7 @@ const DadosUsuario = ({ aoEnviarForm }) => {
       />
       <TextField
         value={senha}
-        onChange={({ target: { value } } = event) => setSenha(value)}
+        onChange={({ target: { value } }) => setSenha(value)}
         onBlur={validarCampos}
         error={!erros.senha.valido}
         helperText={erros.senha.texto}
