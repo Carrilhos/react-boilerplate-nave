@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 
-const DadosEntrega = props => {
+const DadosEntrega = ({ aoEnviarForm }) => {
   const [cep, setCep] = useState('')
   const [endereço, setEndereço] = useState('')
   const [numero, setNumero] = useState('')
@@ -12,7 +12,7 @@ const DadosEntrega = props => {
     <form
       onSubmit={event => {
         event.preventDefault()
-        props.aoEnviarForm({ cep, endereço, numero, estado, cidade })
+        aoEnviarForm({ cep, endereço, numero, estado, cidade })
       }}
     >
       <TextField

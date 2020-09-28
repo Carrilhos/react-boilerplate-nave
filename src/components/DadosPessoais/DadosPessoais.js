@@ -4,7 +4,7 @@ import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core/'
 import ValidacoesCadastro from 'context/validacoesCadastro'
 import UseErros from 'hooks/useErros'
 
-const DadosPessoais = props => {
+const DadosPessoais = ({ aoEnviarForm }) => {
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
   const [email, setEmail] = useState('')
@@ -22,7 +22,7 @@ const DadosPessoais = props => {
         onSubmit={event => {
           event.preventDefault()
           possoEnviar()
-            ? props.aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
+            ? aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
             : console.log('Digite um CPF valido')
         }}
       >
