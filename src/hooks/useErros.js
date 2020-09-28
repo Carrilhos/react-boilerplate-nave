@@ -13,19 +13,17 @@ const UseErros = validacoes => {
   }
 
   const possoEnviar = () => {
-    for (let campo in erros) if (!erros[campo].valido) return false
-    return true
+    return Object.keys(erros).every(campo => erros[campo].valido)
   }
 
   return [erros, validarCampos, possoEnviar]
 }
 
 const criarEstadoInicial = validacoes => {
-  const estadoInicial = {}
-  for (let campo in validacoes) {
-    estadoInicial[campo] = { valido: true, texto: '' }
-  }
-  return estadoInicial
+  return Object.keys(validacoes).reduce((acumulador, key) => {
+    acumulador[key] = { valido: true, texto: '' }
+    return acumulador
+  }, {})
 }
 
 export default UseErros
