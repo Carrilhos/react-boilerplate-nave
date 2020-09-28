@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core'
 import ValidacoesCadastro from 'context/validacoesCadastro'
 import UseErros from 'hooks/useErros'
 
-const DadosUsuario = props => {
+const DadosUsuario = ({ aoEnviarForm }) => {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const validacoes = useContext(ValidacoesCadastro)
@@ -15,12 +15,12 @@ const DadosUsuario = props => {
     <form
       onSubmit={event => {
         event.preventDefault()
-        possoEnviar() === true ? props.aoEnviarForm({ email, senha }) : console.log('Digite uma senha valida')
+        possoEnviar() === true ? aoEnviarForm({ email, senha }) : console.log('Digite uma senha valida')
       }}
     >
       <TextField
         value={email}
-        onChange={event => setEmail(event.target.value)}
+        onChange={({ target: { value } } = event) => setEmail(value)}
         id='email'
         label='email'
         type='email'
@@ -29,13 +29,10 @@ const DadosUsuario = props => {
         margin='normal'
         required
         value={email}
-        onChange={event => {
-          setEmail(event.target.value)
-        }}
       />
       <TextField
         value={senha}
-        onChange={event => setSenha(event.target.value)}
+        onChange={({ target: { value } } = event) => setSenha(value)}
         onBlur={validarCampos}
         error={!erros.senha.valido}
         helperText={erros.senha.texto}
@@ -48,9 +45,6 @@ const DadosUsuario = props => {
         margin='normal'
         required
         value={senha}
-        onChange={event => {
-          setSenha(event.target.value)
-        }}
       />
       <Button type='submit' variant='contained' color='primary'>
         Próximo
