@@ -21,9 +21,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
       <form
         onSubmit={event => {
           event.preventDefault()
-          possoEnviar()
-            ? aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
-            : console.log('Digite um CPF valido')
+          if (possoEnviar()) aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
         }}
       >
         <TextField
