@@ -15,7 +15,7 @@ const DadosUsuario = ({ aoEnviarForm }) => {
     <form
       onSubmit={event => {
         event.preventDefault()
-        possoEnviar() === true ? aoEnviarForm({ email, senha }) : console.log('Digite uma senha valida')
+        if (possoEnviar()) aoEnviarForm({ email, senha })
       }}
     >
       <TextField
