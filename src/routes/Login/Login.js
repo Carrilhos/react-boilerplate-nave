@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import Column from 'components/Column'
 import Input from 'components/Input'
 import Button from 'components/Button'
-import 'react-toastify/dist/ReactToastify.css'
 
 import { useAuth } from 'context/auth-context'
 
