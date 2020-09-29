@@ -1,8 +1,8 @@
 const validarCPF = number => {
   number = number.replace(/[^\d]+/g, '')
   let i
-  var sum
-  var rest
+  let sum
+  let rest
   sum = 0
   if (
     !cpf ||
