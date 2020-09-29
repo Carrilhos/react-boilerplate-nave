@@ -14,7 +14,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
 
   const validacoes = useContext(ValidacoesCadastro)
 
-  const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
+  const [erros, validarCampos, possoEnviar, validarCPF] = UseErros(validacoes)
 
   return (
     <Fragment>

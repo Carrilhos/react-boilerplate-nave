@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-const UseErros = validacoes => {
+const UseErros = (validacoes, cpf) => {
   const estadoInicial = criarEstadoInicial(validacoes)
 
   const [erros, setErros] = useState(estadoInicial)
-
   const validarCampos = event => {
     const { name, value } = event.target
     setErros({
@@ -13,9 +12,7 @@ const UseErros = validacoes => {
     })
   }
 
-  const possoEnviar = () => {
-    return Object.keys(erros).every(campo => erros[campo].valido)
-  }
+  const possoEnviar = () => Object.keys(erros).every(campo => erros[campo].valido)
 
   return [erros, validarCampos, possoEnviar]
 }
