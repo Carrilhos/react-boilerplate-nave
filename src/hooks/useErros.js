@@ -7,9 +7,10 @@ const UseErros = validacoes => {
 
   const validarCampos = event => {
     const { name, value } = event.target
-    const novoEstado = { ...erros }
-    novoEstado[name] = validacoes[name](value)
-    setErros(novoEstado)
+    setErros({
+      ...erros,
+      [name]: validacoes[name](value)
+    })
   }
 
   const possoEnviar = () => {
