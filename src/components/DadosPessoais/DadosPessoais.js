@@ -7,14 +7,13 @@ import UseErros from 'hooks/useErros'
 const DadosPessoais = ({ aoEnviarForm }) => {
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
-  const [email, setEmail] = useState('')
   const [cpf, setCpf] = useState('')
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(true)
 
   const validacoes = useContext(ValidacoesCadastro)
 
-  const [erros, validarCampos, possoEnviar, validarCPF] = UseErros(validacoes)
+  const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
 
   return (
     <Fragment>

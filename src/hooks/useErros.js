@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const UseErros = (validacoes, cpf) => {
+const UseErros = validacoes => {
   const estadoInicial = criarEstadoInicial(validacoes)
 
   const [erros, setErros] = useState(estadoInicial)
