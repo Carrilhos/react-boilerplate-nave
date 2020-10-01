@@ -3,7 +3,6 @@ import { listarNavers } from 'services/auth'
 
 const ListAllNavers = () => {
   const [navers, setNavers] = useState([])
-  const [id, setID] = useState(0)
 
   const loadNavers = async () => {
     try {
