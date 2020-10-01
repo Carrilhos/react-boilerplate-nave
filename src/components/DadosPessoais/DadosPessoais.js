@@ -18,7 +18,8 @@ const DadosPessoais = ({ aoEnviarForm }) => {
 
   const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
 
-  const tipoDeUsuario = {
+const tipoDeUsuario = {
+
     cpf: (
       <Fragment>
         <TextField
@@ -89,6 +90,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           required
         />
 
+ feat-listNavers
         {tipoDeUsuario[cpfOrCnpj]}
 
         <FormControlLabel
