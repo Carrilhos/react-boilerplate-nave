@@ -8,7 +8,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
   const [email, setEmail] = useState('')
-  const [cpfOrCnpj, setCpfOrCnpj] = useState('')
+  const [cpfOrCnpj, setCpfOrCnpj] = useState('cpf')
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(true)
   const [cpf, setCpf] = useState('')
@@ -20,22 +20,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
 
   const qualquernome = {
     cpf: (
-      <form
-        onSubmit={event => {
-          event.preventDefault()
-          if (possoEnviar()) aoEnviarForm({ nome, sobrenome, cnpj, cpf, novidades, promocoes })
-        }}
-      >
-        <TextField
-          value={nome}
-          id='nome'
-          label='Nome'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          onChange={event => setNome(event.target.value)}
-          required
-        />
+      <Fragment>
         <TextField
           id='sobrenome'
           label='Sobrenome'
@@ -61,42 +46,38 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           required
           name='cpf'
         />
-
-        <FormControlLabel
-          label='promoções'
-          control={
-            <Switch
-              checked={promocoes}
-              onChange={event => setPromocoes(event.target.checked)}
-              name='Promoções'
-              color='primary'
-            />
-          }
-        />
-        <FormControlLabel
-          label='Novidades'
-          control={
-            <Switch
-              checked={novidades}
-              onChange={event => setNovidades(event.target.checked)}
-              name='Novidades'
-              color='primary'
-            />
-          }
-        />
-
-        <Button type='submit' variant='contained' color='primary'>
-          Próximo
-        </Button>
-      </form>
+      </Fragment>
     ),
     cnpj: (
-      <form
-        onSubmit={event => {
-          event.preventDefault()
-          if (possoEnviar()) aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
-        }}
-      >
+      <TextField
+        id='cnpj'
+        label='CNPJ'
+        variant='outlined'
+        fullWidth
+        margin='normal'
+        value={cnpj}
+        onChange={event => setCnpj(event.target.value)}
+        required
+        name='cnpj'
+      />
+    )
+  }
+
+  const handleOnSubmit = event => {
+    event.preventDefault()
+    if (possoEnviar()) {
+      if (cpfOrCnpj === 'cpf') {
+        aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
+      } else {
+        aoEnviarForm({ nome, cnpj, novidades, promocoes })
+      }
+    }
+  }
+
+  return (
+    <Fragment>
+      <InputLabel>Seleciona se é pessoa fisica ou juridica</InputLabel>
+      <form onSubmit={handleOnSubmit}>
         <TextField
           value={nome}
           id='nome'
@@ -108,17 +89,7 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           required
         />
 
-        <TextField
-          id='cnpj'
-          label='CNPJ'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          value={cnpj}
-          onChange={event => setCnpj(event.target.value)}
-          required
-          name='cnpj'
-        />
+        {qualquernome[cpfOrCnpj]}
 
         <FormControlLabel
           label='promoções'
@@ -147,16 +118,8 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           Próximo
         </Button>
       </form>
-    )
-  }
 
-  console.log('render')
-  return (
-    <Fragment>
-      <InputLabel>Seleciona se é pessoa fisica ou juridica</InputLabel>
-      {qualquernome[cpfOrCnpj]}
       <Select native value={cpfOrCnpj} onChange={event => setCpfOrCnpj(event.target.value)}>
-        <option aria-label='Selecione' value='' />
         <option value='cpf'>CPF</option>
         <option value='cnpj'>CNPJ</option>
       </Select>
