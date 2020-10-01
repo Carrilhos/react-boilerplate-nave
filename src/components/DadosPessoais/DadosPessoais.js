@@ -18,7 +18,8 @@ const DadosPessoais = ({ aoEnviarForm }) => {
 
   const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
 
-  const qualquernome = {
+const tipoDeUsuario = {
+
     cpf: (
       <Fragment>
         <TextField
@@ -89,7 +90,8 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           required
         />
 
-        {qualquernome[cpfOrCnpj]}
+ feat-listNavers
+        {tipoDeUsuario[cpfOrCnpj]}
 
         <FormControlLabel
           label='promoções'
