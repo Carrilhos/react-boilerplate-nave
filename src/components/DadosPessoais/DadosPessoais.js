@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react'
-import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core/'
+import { TextField, Button, Switch, FormControlLabel, Select, InputLabel } from '@material-ui/core/'
 
 import ValidacoesCadastro from 'context/validacoesCadastro'
 import UseErros from 'hooks/useErros'
@@ -7,32 +7,21 @@ import UseErros from 'hooks/useErros'
 const DadosPessoais = ({ aoEnviarForm }) => {
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
-  const [cpf, setCpf] = useState('')
+  const [email, setEmail] = useState('')
+  const [cpfOrCnpj, setCpfOrCnpj] = useState('cpf')
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(true)
+  const [cpf, setCpf] = useState('')
+  const [cnpj, setCnpj] = useState('')
 
   const validacoes = useContext(ValidacoesCadastro)
 
   const [erros, validarCampos, possoEnviar] = UseErros(validacoes)
 
-  return (
-    <Fragment>
-      <form
-        onSubmit={event => {
-          event.preventDefault()
-          if (possoEnviar()) aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
-        }}
-      >
-        <TextField
-          value={nome}
-          id='nome'
-          label='Nome'
-          variant='outlined'
-          fullWidth
-          margin='normal'
-          onChange={event => setNome(event.target.value)}
-          required
-        />
+const tipoDeUsuario = {
+
+    cpf: (
+      <Fragment>
         <TextField
           id='sobrenome'
           label='Sobrenome'
@@ -58,6 +47,51 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           required
           name='cpf'
         />
+      </Fragment>
+    ),
+    cnpj: (
+      <TextField
+        id='cnpj'
+        label='CNPJ'
+        variant='outlined'
+        fullWidth
+        margin='normal'
+        value={cnpj}
+        onChange={event => setCnpj(event.target.value)}
+        required
+        name='cnpj'
+      />
+    )
+  }
+
+  const handleOnSubmit = event => {
+    event.preventDefault()
+    if (possoEnviar()) {
+      if (cpfOrCnpj === 'cpf') {
+        aoEnviarForm({ nome, sobrenome, cpf, novidades, promocoes })
+      } else {
+        aoEnviarForm({ nome, cnpj, novidades, promocoes })
+      }
+    }
+  }
+
+  return (
+    <Fragment>
+      <InputLabel>Seleciona se é pessoa fisica ou juridica</InputLabel>
+      <form onSubmit={handleOnSubmit}>
+        <TextField
+          value={nome}
+          id='nome'
+          label='Nome'
+          variant='outlined'
+          fullWidth
+          margin='normal'
+          onChange={event => setNome(event.target.value)}
+          required
+        />
+
+ feat-listNavers
+        {tipoDeUsuario[cpfOrCnpj]}
 
         <FormControlLabel
           label='promoções'
@@ -86,6 +120,11 @@ const DadosPessoais = ({ aoEnviarForm }) => {
           Próximo
         </Button>
       </form>
+
+      <Select native value={cpfOrCnpj} onChange={event => setCpfOrCnpj(event.target.value)}>
+        <option value='cpf'>CPF</option>
+        <option value='cnpj'>CNPJ</option>
+      </Select>
     </Fragment>
   )
 }
