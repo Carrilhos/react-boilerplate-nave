@@ -20,7 +20,10 @@ const AuthenticatedApp = lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = lazy(() => import('./UnauthenticatedApp'))
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
 * {
+  font-family: Montserrat;
   border: 0;
   padding: 0;
   margin: 0;
